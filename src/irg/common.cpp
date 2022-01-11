@@ -1,6 +1,5 @@
 #include <irg/common.hpp>
 
-#include <irg/mouse.hpp>
 #include <irg/keyboard.hpp>
 #include <irg/window.hpp>
 
@@ -30,13 +29,14 @@ namespace irg {
   }
 
   ::GLFWwindow* create_window(int const width, int const height) {
-    ::GLFWwindow* w = ::glfwCreateWindow(width, height, "gl", nullptr, nullptr);
+    ::GLFWwindow* w = 
+      ::glfwCreateWindow(width, height, "gl", nullptr, nullptr);
 
     if (!w)
       terminate("Unable to create a window.");
 
     ::glfwMakeContextCurrent(w);
-    ::glfwSetWindowPos(w, 100, 100);
+    ::glfwSetWindowPos(w, (1920 - width) / 2, (1080 - height) / 2);
 
     if (!::gladLoadGLLoader(
           reinterpret_cast<::GLADloadproc>(::glfwGetProcAddress)))
@@ -74,8 +74,8 @@ namespace irg {
   }
 
   void bind_events(::GLFWwindow* window) {
-    ::glfwSetMouseButtonCallback(window, ::irg::mouse_events::click_callback);
-    ::glfwSetCursorPosCallback(window, ::irg::mouse_events::move_callback);
+    //::glfwSetMouseButtonCallback(window, ::irg::mouse_events::click_callback);
+    //::glfwSetCursorPosCallback(window, ::irg::mouse_events::move_callback);
 
     ::glfwSetKeyCallback(window, ::irg::keyboard_events::callback);
   }

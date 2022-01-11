@@ -14,7 +14,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <irg/common.hpp>
-#include <irg/primitive.hpp>
 #include <irg/ownership.hpp>
 
 namespace irg {
@@ -26,13 +25,13 @@ namespace irg {
     unsigned type;
 
     shader(char const* file, int const type)
-      : type(type)
-      , _id(deffer_ownership(
+      : _id(deffer_ownership(
           new unsigned{glCreateShader(type)}, 
           [](auto* ptr) {
             glDeleteShader(*ptr);
           }
         ))
+      , type(type)
     {
       ::std::ifstream f(file);
       if (!f.is_open())
@@ -118,7 +117,7 @@ namespace irg {
       glUniform1i(glGetUniformLocation(*id, uniform_name), i);
     }
 
-    void set_uniform_color(char const* uniform_name, color const& c) {
+    void set_uniform_color(char const* uniform_name, ::glm::vec3 const& c) {
       glUniform3f(glGetUniformLocation(*id, uniform_name), c.r, c.g, c.b);
     }
 

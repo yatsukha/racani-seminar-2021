@@ -12,7 +12,7 @@ namespace irg {
 
   namespace keyboard_event_type {
     using on_press = ::std::function<ob::action(int const, bool)>;
-  };
+  }
 
   class keyboard_events : public ob::observer<keyboard_event_type::on_press> {
    public:

@@ -28,6 +28,7 @@ namespace irg {
       : position(position), target(target) {}
     
     ::glm::mat4 view_matrix() noexcept;
+    void update() noexcept;
   };
 
   ::irg::keyboard_event_type::on_press standard_camera_controler(camera& c);

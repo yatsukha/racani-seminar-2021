@@ -2,7 +2,7 @@
 
 namespace irg {
 
-  ::glm::mat4 camera::view_matrix() noexcept {
+  void camera::update() noexcept {
     auto direction = ::glm::vec4{position - target, 1.0};
     auto rotate_around = 
     [&direction](auto& object, auto&& angle, auto&& mask) {
@@ -17,7 +17,7 @@ namespace irg {
     };
 
     auto zoom =
-    [this, &direction](auto& object, auto&& sensitivity, auto&& mask) {
+    [&direction](auto& object, auto&& sensitivity, auto&& mask) {
       object += mask * sensitivity * ::glm::vec3(direction);
     };
 
@@ -30,7 +30,10 @@ namespace irg {
 
     zoom(position, zoom_sensitivity[0], -zoom_mask[0]);
     zoom(target, zoom_sensitivity[1], zoom_mask[1]);
+  }
 
+  ::glm::mat4 camera::view_matrix() noexcept {
+    this->update();
     return ::glm::lookAt(position, target, {0.0, 1.0, 0.0}); 
   }
   
