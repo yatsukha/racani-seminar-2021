@@ -6,9 +6,7 @@
 
 See [videos](videos) subfolder for more examples.
 
-## Usage
-
-### Building
+## Building and running
 
 Program dependencies:
   * `OpenGL`
