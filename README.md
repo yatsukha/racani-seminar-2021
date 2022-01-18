@@ -2,26 +2,39 @@
 
 ## Examples
 
-Infinite balls.
-
-![infinite balls](videos/balls0.gif)
-
-Infinite balls with mirroring.
-
-![infinite balls mirrored](videos/balls1.gif)
-
-Sierpinski.
-
-![sierpinski](videos/sierpinski.gif)
-
-Mandelbulb.
-
-![mandelbulb](videos/mandelbulb_rotate.gif)
-
-Mandelbulb with constantly increasing power.
+Click on a spoiler to show a gif.
 
 <details>
-  <summary>**Warning**: big file.</summary> 
+  <summary>Infinite balls</summary> 
+
+  ![infinite balls mirrored](videos/balls0.gif)
+
+</details>
+
+<details>
+  <summary>Mirrored infinite balls</summary> 
+
+  ![infinite balls mirrored](videos/balls1.gif)
+
+</details>
+
+
+<details>
+  <summary>Sierpinski</summary> 
+
+  ![sierpinski](videos/sierpinski.gif)
+
+</details>
+
+<details>
+  <summary>Mandelbulb</summary> 
+  
+  ![mandelbulb](videos/mandelbulb_rotate.gif)
+
+</details>
+
+<details>
+  <summary>Mandelbulb with constantly increasing power</summary> 
   
   ![mandelbulb dynamic](videos/mandelbulb_dynamic.gif)
 
