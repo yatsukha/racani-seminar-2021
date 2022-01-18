@@ -11,14 +11,16 @@ See [videos](videos) subfolder for more examples.
 ### Building
 
 Program dependencies:
-  * OpenGL
-  * GLM
-  * GLFW
-  * dl, dynamic loader, likely provided by your compiler
+  * `OpenGL`
+  * `GLM`
+  * `GLFW`
+  * `dl`, dynamic loader, likely provided by your compiler
 
 Build tool dependencies:
-  * meson
-  * ninja
+  * `meson`
+  * `ninja`
+  * `gcc` with support for `-std=c++17` (or `clang`, untested)
+
 
 ```
 $ meson -Dbuildtype=release release_build
