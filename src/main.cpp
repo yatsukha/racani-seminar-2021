@@ -7,17 +7,26 @@
 #include <irg/window.hpp>
 #include <irg/camera.hpp>
 
-int main() {
-  auto const width = 1200;
-  auto const height = 800;
+int main(int const argc, char const* const* argv) {
+  if (argc != 2) {
+    ::irg::terminate(
+      "Expected one command line argument: <fragment shader path>\n"
+      "See 'data/shaders' folder of this repository.");
+  }
+
+  auto const initial_width = 600;
+  auto const initial_height = 600;
   auto  guard  = ::irg::init();
-  auto* window = ::irg::create_window(width, height);
+  auto* window = ::irg::create_window(initial_width, initial_height);
 
   ::irg::bind_events(window);
 
   ::irg::shader_program shader{
-    {"data/shaders/vert.glsl", GL_VERTEX_SHADER},
-    {"data/shaders/frag.glsl", GL_FRAGMENT_SHADER},
+    {"#version 330 core\n"
+     "layout (location = 0) in vec2 pos;\n"
+     "void main(){ gl_Position = vec4(pos, 0.0, 1.0); }", 
+     GL_VERTEX_SHADER},
+    ::irg::shader::from_file(argv[1], GL_FRAGMENT_SHADER)
   };
 
   ::irg::camera camera{{0, 0, -2}, {0, 0, 0}};
@@ -25,8 +34,8 @@ int main() {
 
   shader.activate();
   shader.set_uniform_vec3("resolution", {
-    static_cast<float>(width), 
-    static_cast<float>(height),
+    static_cast<float>(initial_width), 
+    static_cast<float>(initial_height),
     0.f,
   });
 
@@ -86,6 +95,18 @@ int main() {
     }
     return ::irg::ob::remain;
   });
+
+  ::std::cout 
+    << "3D fractals with Ray Marching by https://github.com/yatsukha/" << "\n\n"
+    << "Use WASD to rotate camera around target, IO to zoom in/out." << "\n"
+    << "Use arrow keys to move the camera target, JK to zoom in/out." << "\n"
+    << "0 to reset power increase/decrease for Mandelbulb." << "\n"
+    << "1/2 to increase/decrease power change for Mandelbulb." << "\n"
+    << "3/4 to increase/decrease iteration count for fractals." << "\n"
+    << "5/6 to increase/decrease the max number of ray march steps." << "\n"
+    << "7/8 to increase/decrease minimum distance required for a hit."
+    << ::std::endl;
+    
 
   ::irg::w_events.add_listener([&shader](auto const w, auto const h) {
     shader.activate();

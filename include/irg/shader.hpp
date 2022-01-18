@@ -24,7 +24,7 @@ namespace irg {
    public:
     unsigned type;
 
-    shader(char const* file, int const type)
+    shader(char const* source, int const type)
       : _id(deffer_ownership(
           new unsigned{glCreateShader(type)}, 
           [](auto* ptr) {
@@ -33,6 +33,21 @@ namespace irg {
         ))
       , type(type)
     {
+      glShaderSource(*_id, 1, &source, nullptr);
+      glCompileShader(*_id);
+
+      int success;
+      ::std::array<char, 512> log;
+
+      glGetShaderiv(*_id, GL_COMPILE_STATUS, &success);
+      if (!success) {
+        glGetShaderInfoLog(*_id, log.max_size(), nullptr, log.data()),
+        ::std::cerr << "Error: " << "\n",
+        ::irg::terminate(log.data());
+      }
+    }
+
+    static shader from_file(char const* file, int const type) {
       ::std::ifstream f(file);
       if (!f.is_open())
         ::std::cerr << "Error while opening file: ",
@@ -42,20 +57,8 @@ namespace irg {
         (::std::istreambuf_iterator<char>(f)),
         ::std::istreambuf_iterator<char>()
       );
-
-      const char* chars = source.c_str();
-
-      glShaderSource(*_id, 1, &chars, nullptr);
-      glCompileShader(*_id);
-
-      int success;
-      ::std::array<char, 512> log;
-
-      glGetShaderiv(*_id, GL_COMPILE_STATUS, &success);
-      if (!success)
-        glGetShaderInfoLog(*_id, log.max_size(), nullptr, log.data()),
-        ::std::cerr << file << ": " << "\n",
-        ::irg::terminate(log.data());
+      
+      return {source.c_str(), type};
     }
 
     unsigned id() const noexcept {
