@@ -1,4 +1,0 @@
-https://michaelwalczyk.com/blog-ray-marching.html
-https://www.youtube.com/watch?v=svLzmFuSBhk
-https://www.iquilezles.org/www/index.htm
-http://blog.hvidtfeldts.net/index.php/2011/06/distance-estimated-3d-fractals-part-i/
