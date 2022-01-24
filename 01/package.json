@@ -1,0 +1,12 @@
+{
+  "mode": "development",
+  "private": true,
+  "dependencies": {
+    "three": "^0.133.1",
+    "webpack": "^5.58.2",
+    "webpack-cli": "^4.9.0"
+  },
+  "stats": {
+    "warnings": false
+  }
+}
